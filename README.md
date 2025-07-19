@@ -9,7 +9,7 @@ SpySense is an **AI-powered security dashboard** for ethical hacking, monitoring
 - **Keylogging:** Capture all keystrokes with timestamps for analysis.
 - **Process Detection:** Scan running processes for suspicious activity using `psutil`.
 - **System Info:** Monitor CPU, RAM, and process count in real time.
-- **Advanced Dashboard:** Animated, responsive React UI with hacker/cyberpunk theme, glitch effects, and collapsible sidebar.
+- **Advanced Dashboard:** Animated, responsive React UI with hacker/cyberpunk theme and glitch effects.
 
 ---
 
@@ -32,7 +32,7 @@ SpySense is an **AI-powered security dashboard** for ethical hacking, monitoring
 
 ## 📁 Project Structure
 ```
-ethical-hacking/
+spy-sense/
 ├── backend/
 │   ├── app.py             # Flask backend (API, AI, keylogger, system info)
 │   ├── detector.py        # Process detection logic
@@ -45,9 +45,6 @@ ethical-hacking/
 │       ├── App.js         # Main React app
 │       ├── Dashboard.js   # Main dashboard logic/UI
 │       ├── Dashboard.css  # Dashboard styles
-│       ├── components/
-│       │   ├── Sidebar.js # Collapsible sidebar
-│       │   └── Sidebar.css# Sidebar styles
 │       └── ...            # Other React files/assets
 ├── README.md              # Project documentation
 └── ...                    # .gitignore, venv, etc.
@@ -77,7 +74,7 @@ cd backend
 pip install -r requirements.txt
 python app.py
 ```
-- The backend runs on [http://localhost:5000](http://localhost:5000)
+- The backend runs on [http://localhost:5001](http://localhost:5001)
 
 ### 4. Start the Frontend
 ```bash
